@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
+import Chat from "./pages/Chat.jsx";
 import "./index.css";
 import {
   Route,
@@ -10,11 +11,13 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import { AuthProvider } from "./contexts/Auth.jsx";
+import ChatContextProvider from "./contexts/ChatContext.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
       <Route path="" element={<LandingPage />} />
+      <Route path="/chat" element={<Chat />} />
     </Route>
   )
 );
@@ -22,7 +25,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <ChatContextProvider>
+        <RouterProvider router={router} />
+      </ChatContextProvider>
     </AuthProvider>
   </React.StrictMode>
 );
